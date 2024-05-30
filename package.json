@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "MrChikip",
   "license": "ISC",
-  "description": "",
+  "description": "basic comand centre for vs, as like intranet",
   "dependencies": {
     "express": "^4.19.2",
     "morgan": "^1.10.0",
