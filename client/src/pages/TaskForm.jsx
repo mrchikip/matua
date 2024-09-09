@@ -7,7 +7,7 @@ function TaskForm() {
       <Formik
         initialValues={{
           title: "",
-          description: "",
+          description: ""
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
@@ -16,11 +16,11 @@ function TaskForm() {
             console.log(response);
             actions.resetForm();
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
         }}
       >
-        {({ handleChange, handleSubmit, values }) => (
+        {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="title">title</label>
@@ -40,9 +40,11 @@ function TaskForm() {
                 placeholder="Write a description"
                 onChange={handleChange}
                 value={values.description}
-              />
+              ></textarea>
             </div>
-            <button type="submit">Save</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save"}
+            </button>
           </Form>
         )}
       </Formik>
