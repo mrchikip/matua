@@ -5,7 +5,8 @@ import {
   deleteTaskRequest,
   createTaskRequest,
   getTaskRequest,
-  updateTaskRequest
+  updateTaskRequest,
+  toggleTaskDoneRequest
 } from "../api/task.api";
 import { TaskContext } from "./TaskContext";
 
@@ -54,8 +55,6 @@ export const TaskContextProvider = ({ children }) => {
 
   const updateTask = async (id, newFields) => {
     try {
-      //const task = await getTask(id);
-      //const updatedTask = { ...task, ...newFields };
       const response = await updateTaskRequest(id, newFields);
       console.log(response);
     } catch (error) {
@@ -63,9 +62,31 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
+  const toggleTaskDone = async (id) => {
+    try {
+      const taskFound = tasks.find((task) => task.id === id);
+      await toggleTaskDoneRequest(id, taskFound.done === 0 ? true : false);
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, done: !task.done } : task
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <TaskContext.Provider
-      value={{ tasks, loadTasks, deleteTask, createTask, getTask, updateTask }}
+      value={{
+        tasks,
+        loadTasks,
+        deleteTask,
+        createTask,
+        getTask,
+        updateTask,
+        toggleTaskDone
+      }}
     >
       {children}
     </TaskContext.Provider>
