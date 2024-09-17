@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import TaskCard from "../components/TaskCard";
 import { useTasks } from "../context/TaskProvider";
